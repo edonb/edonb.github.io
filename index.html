@@ -1,0 +1,734 @@
+﻿<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VM 2026 - Prediksjoner</title>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --border: #1f2d45;
+    --gold: #f59e0b;
+    --gold-dim: #92610a;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --green: #22c55e;
+    --red: #ef4444;
+    --orange: #f97316;
+    --blue: #3b82f6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+
+  /* ── Header ── */
+  .header { padding: 2.5rem 2rem 1.5rem; border-bottom: 1px solid var(--border); }
+  .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+  .header h1 { font-size: 1.5rem; font-weight: 700; color: var(--gold); letter-spacing: -0.02em; }
+  .header h1 span { color: var(--muted); font-weight: 400; }
+  .accuracy-globe { display: flex; align-items: center; gap: 0.7rem; background: var(--surface); border: 1px solid var(--border); padding: 0.7rem 0.9rem; border-radius: 12px; }
+  .accuracy-ring { position: relative; width: 46px; height: 46px; flex-shrink: 0; }
+  .accuracy-ring svg { transform: rotate(-90deg); }
+  .accuracy-ring .ring-bg   { fill: none; stroke: var(--border); stroke-width: 5; }
+  .accuracy-ring .ring-fill { fill: none; stroke: var(--green); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+  .accuracy-ring .ring-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; }
+  .acc-mini-ring { position: relative; width: 40px; height: 40px; flex-shrink: 0; margin: 0 auto 0.15rem; }
+  .acc-mini-ring svg { transform: rotate(-90deg); }
+  .acc-mini-ring .ring-bg   { fill: none; stroke: var(--border); stroke-width: 5; }
+  .acc-mini-ring .ring-fill { fill: none; stroke: var(--green); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+  .acc-mini-ring .mini-ring-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; }
+  .acc-divider { width: 1px; background: var(--border); align-self: stretch; flex-shrink: 0; }
+  .acc-block { display: flex; flex-direction: column; align-items: center; gap: 0.08rem; }
+  .acc-block-frac { font-size: 0.75rem; font-weight: 700; }
+  .acc-block-lbl  { font-size: 0.6rem; color: var(--muted); text-align: center; line-height: 1.3; }
+  .acc-block-sub  { font-size: 0.58rem; color: var(--muted); }
+  .acc-stat { display: flex; flex-direction: column; align-items: center; gap: 0.06rem; padding: 0 0.2rem; }
+  .acc-stat-frac { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+  .acc-stat-pct  { font-size: 0.72rem; font-weight: 700; }
+  .acc-stat-lbl  { font-size: 0.6rem; color: var(--muted); text-align: center; line-height: 1.3; margin-top: 0.1rem; }
+
+  /* ── Tabs (page) ── */
+  .tabs { max-width: 1100px; margin: 1.5rem auto 0; padding: 0 2rem; display: flex; gap: 0.5rem; }
+  .tab { padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; font-size: 0.85rem; transition: all 0.15s; }
+  .tab:hover { color: var(--text); }
+  .tab.active { background: var(--gold); border-color: var(--gold); color: #000; font-weight: 600; }
+
+  /* ── Grid ── */
+  .grid { max-width: 1100px; margin: 2rem auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+
+  /* ── Cards ── */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.15rem 1.1rem; cursor: pointer; transition: all 0.2s; }
+  .card.status-spilt    { border-left: 3px solid var(--green); opacity: 0.6; }
+  .card.status-idag     { border-left: 3px solid var(--gold);  animation: pulse-border 2s infinite; }
+  .card.status-kommende { border-left: 3px solid var(--blue);  }
+  .card.stub            { border-left: 3px solid var(--border); cursor: default; opacity: 0.6; }
+  .card.status-spilt:hover    { border-color: var(--green); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(34,197,94,0.15); opacity: 0.85; }
+  .card.status-idag:hover     { border-color: var(--gold);  transform: translateY(-2px); box-shadow: 0 8px 32px rgba(245,158,11,0.15); }
+  .card.status-kommende:hover { border-color: var(--blue);  transform: translateY(-2px); box-shadow: 0 8px 32px rgba(59,130,246,0.15); }
+  .card.stub:hover            { transform: none; box-shadow: none; }
+  @keyframes pulse-border { 0%,100% { border-left-color: var(--gold); } 50% { border-left-color: var(--gold-dim); } }
+
+  .card-badge     { font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.5rem; border-radius: 5px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .badge-spilt    { background: rgba(34,197,94,0.15);   color: var(--green); }
+  .badge-idag     { background: rgba(245,158,11,0.15);  color: var(--gold); }
+  .badge-kommende { background: rgba(59,130,246,0.15);  color: var(--blue); }
+  .badge-ingen    { background: rgba(100,116,139,0.12); color: var(--muted); }
+
+  .card-header  { display: flex; justify-content: flex-end; margin-bottom: 0.6rem; }
+
+  .card-matchup { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.6rem; }
+  .card-team-block      { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; flex: 1; min-width: 0; }
+  .card-team-block .flag { font-size: 1.7rem; line-height: 1; }
+  .card-team-block .name { font-size: 0.78rem; font-weight: 600; text-align: center; line-height: 1.3; word-break: break-word; color: var(--text); }
+  .card-vs { font-size: 0.7rem; color: var(--muted); flex-shrink: 0; }
+
+  .card-meta           { text-align: center; margin-bottom: 0.65rem; }
+  .card-meta .meta-date  { font-size: 0.72rem; color: var(--muted); line-height: 1.5; }
+  .card-meta .meta-time  { color: var(--gold); font-weight: 600; }
+  .card-meta .meta-arena { font-size: 0.68rem; color: var(--muted); opacity: 0.6; margin-top: 0.1rem; }
+
+  .card-score-pred       { text-align: center; font-size: 1.4rem; font-weight: 700; color: var(--gold); letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+  .card-score-pred small { display: block; font-size: 0.68rem; font-weight: 400; color: var(--muted); margin-top: 0.1rem; }
+  .card-scores  { display: flex; align-items: center; justify-content: center; gap: 0.65rem; margin-bottom: 0.5rem; }
+  .score-col    { display: flex; flex-direction: column; align-items: center; gap: 0.05rem; }
+  .score-val    { font-weight: 700; letter-spacing: 0.06em; }
+  .score-lbl    { font-size: 0.58rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .score-sep    { color: var(--border); font-size: 0.8rem; margin-bottom: 0.8rem; }
+  .card-accuracy { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
+  .acc-bar-wrap  { flex: 1; height: 5px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .acc-bar       { height: 100%; border-radius: 99px; transition: width 1s ease; }
+  .acc-label     { font-size: 0.78rem; font-weight: 700; min-width: 36px; text-align: right; }
+
+  /* ── Modal ── */
+  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); z-index: 100; display: flex; align-items: flex-start; justify-content: center; padding: 2rem 1rem; opacity: 0; pointer-events: none; transition: opacity 0.2s; overflow-y: auto; }
+  .overlay.open { opacity: 1; pointer-events: all; }
+  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; width: 100%; max-width: 700px; overflow: hidden; transform: translateY(16px); transition: transform 0.25s; }
+  .overlay.open .modal { transform: translateY(0); }
+
+  .modal-header { padding: 1.75rem 1.75rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; }
+  .modal-teams  { display: flex; align-items: center; gap: 1rem; }
+  .modal-team   { text-align: center; }
+  .modal-team .flag { font-size: 2rem; display: block; }
+  .modal-team .name { font-size: 0.85rem; font-weight: 600; margin-top: 0.25rem; }
+  .modal-vs   { color: var(--muted); font-size: 0.9rem; }
+  .modal-meta { font-size: 0.75rem; color: var(--muted); margin-top: 0.5rem; }
+  .close-btn  { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .close-btn:hover { color: var(--text); }
+
+  /* ── Modal tabs ── */
+  .modal-tabs { display: flex; border-bottom: 1px solid var(--border); padding: 0 1.75rem; gap: 0.25rem; }
+  .modal-tab  { padding: 0.7rem 1rem; font-size: 0.85rem; cursor: pointer; border-bottom: 2px solid transparent; color: var(--muted); background: transparent; border-top: none; border-left: none; border-right: none; transition: all 0.15s; white-space: nowrap; }
+  .modal-tab:hover { color: var(--text); }
+  .modal-tab.active { border-bottom-color: var(--gold); color: var(--text); font-weight: 600; }
+
+  .modal-body { padding: 1.75rem; display: flex; flex-direction: column; gap: 1.5rem; }
+  .tab-panel { display: none; flex-direction: column; gap: 1.5rem; }
+  .tab-panel.active { display: flex; }
+
+  .section-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.75rem; }
+
+  /* Prediction score */
+  .pred-score-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+  .pred-score { font-size: 2rem; font-weight: 700; color: var(--gold); }
+  .pred-scenario .primary { font-size: 0.9rem; font-weight: 600; text-align: right; }
+  .pred-scenario .alt     { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; text-align: right; }
+
+  /* Probability bars */
+  .prob-row   { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+  .prob-label { font-size: 0.8rem; width: 170px; flex-shrink: 0; }
+  .prob-track { flex: 1; height: 8px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .prob-fill  { height: 100%; border-radius: 99px; transition: width 0.8s ease; }
+  .prob-val   { font-size: 0.8rem; font-weight: 600; min-width: 36px; text-align: right; }
+
+  /* Scorer list */
+  .scorer-list { display: flex; flex-direction: column; gap: 0.5rem; }
+  .scorer-row  { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0.75rem; background: var(--surface2); border-radius: 8px; }
+  .scorer-badge     { font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.45rem; border-radius: 5px; text-transform: uppercase; letter-spacing: 0.04em; flex-shrink: 0; min-width: 80px; text-align: center; }
+  .badge-garantert  { background: rgba(245,158,11,0.2);  color: var(--gold); }
+  .badge-sannsynlig { background: rgba(249,115,22,0.2);  color: var(--orange); }
+  .badge-mulig      { background: rgba(100,116,139,0.18);color: var(--muted); }
+  .scorer-name { font-size: 0.85rem; font-weight: 600; flex: 1; }
+  .scorer-team { font-size: 0.75rem; color: var(--muted); }
+
+  /* Odds table */
+  .odds-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  .odds-table th { text-align: left; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 0 0.75rem 0.6rem; }
+  .odds-table th.right { text-align: right; }
+  .odds-table td { padding: 0.55rem 0.75rem; border-top: 1px solid var(--border); }
+  .odds-table tr:first-child td { border-top: none; }
+  .odds-table .name-cell  { font-weight: 600; }
+  .odds-table .team-cell  { color: var(--muted); font-size: 0.78rem; }
+  .odds-table .odds-cell  { text-align: right; font-weight: 700; font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+  .odds-table .impl-cell  { text-align: right; color: var(--muted); font-size: 0.78rem; }
+  .odds-table .pred-cell  { text-align: right; font-size: 0.78rem; }
+  .odds-table .est-badge  { font-size: 0.62rem; background: rgba(100,116,139,0.2); color: var(--muted); padding: 0.1rem 0.35rem; border-radius: 4px; margin-left: 0.35rem; vertical-align: middle; }
+
+  .odds-highlight { color: var(--green); }
+  .odds-missing   { color: var(--border); font-size: 0.9rem; }
+  .odds-note { font-size: 0.78rem; color: var(--muted); padding: 0.75rem 1rem; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; line-height: 1.6; }
+  .odds-note code { background: var(--bg); padding: 0.1rem 0.35rem; border-radius: 4px; font-family: monospace; font-size: 0.85em; color: var(--text); }
+  .odds-source { font-size: 0.72rem; color: var(--muted); margin-top: 0.5rem; }
+
+  /* Accuracy report */
+  .accuracy-report { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .accuracy-report-header { padding: 0.85rem 1rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+  .accuracy-report-header strong { font-size: 0.85rem; }
+  .acc-pct-badge { font-size: 0.85rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 6px; }
+  .acc-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; border-bottom: 1px solid var(--border); }
+  .acc-item:last-child { border-bottom: none; }
+  .acc-icon       { font-size: 1rem; width: 20px; flex-shrink: 0; }
+  .acc-item-label { font-size: 0.82rem; flex: 1; }
+  .acc-item-note  { font-size: 0.75rem; color: var(--muted); }
+
+  .actual-result  { background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.2); border-radius: 10px; padding: 0.85rem 1rem; }
+  .actual-score   { font-size: 1.4rem; font-weight: 700; color: var(--green); }
+  .actual-scorers { font-size: 0.8rem; color: var(--muted); margin-top: 0.35rem; }
+  .actual-stats   { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+
+  .error-box { max-width: 1100px; margin: 4rem auto; padding: 2rem; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3); border-radius: 12px; color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+  .error-box code { background: var(--surface2); padding: 0.2rem 0.4rem; border-radius: 4px; font-family: monospace; color: var(--text); }
+  .no-results { max-width: 1100px; margin: 4rem auto; padding: 0 2rem; text-align: center; color: var(--muted); font-size: 0.9rem; }
+
+  /* ── Betingelser-knapp ── */
+  .cond-btn { padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; font-size: 0.85rem; transition: all 0.15s; margin-left: auto; }
+  .cond-btn:hover { color: var(--text); border-color: var(--muted); }
+
+  /* ── Betingelser-panel ── */
+  .cond-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 2rem 1rem; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+  .cond-overlay.open { opacity: 1; pointer-events: all; }
+  .cond-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; width: 100%; max-width: 520px; max-height: 82vh; overflow-y: auto; transform: translateY(12px); transition: transform 0.25s; }
+  .cond-overlay.open .cond-panel { transform: translateY(0); }
+  .cond-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: var(--surface); z-index: 1; }
+  .cond-header h2 { font-size: 1rem; font-weight: 700; }
+  .cond-intro { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.75rem; line-height: 1.5; }
+  .cond-body { padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0.45rem; }
+  .cond-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.6rem 0.75rem; background: var(--surface2); border-radius: 8px; }
+  .cond-icon { font-size: 1rem; flex-shrink: 0; width: 22px; margin-top: 0.05rem; }
+  .cond-text strong { font-size: 0.83rem; display: block; margin-bottom: 0.1rem; }
+  .cond-text span { font-size: 0.73rem; color: var(--muted); line-height: 1.45; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <h1>VM 2026 Prediksjoner</h1>
+      <p style="font-size:0.8rem;color:var(--muted);margin-top:0.3rem">Klikk på en kamp for full analyse, odds og treffsikkerhet</p>
+    </div>
+    <div class="accuracy-globe">
+      <div class="acc-block">
+        <div class="accuracy-ring">
+          <svg viewBox="0 0 52 52" width="46" height="46">
+            <circle class="ring-bg"   cx="26" cy="26" r="22"/>
+            <circle class="ring-fill" id="ringFill" cx="26" cy="26" r="22" stroke-dasharray="138.2" stroke-dashoffset="138.2"/>
+          </svg>
+          <div class="ring-text" id="ringText">-</div>
+        </div>
+        <div class="acc-block-frac" id="accSummary">- / -</div>
+        <div class="acc-block-lbl">Totale tips</div>
+        <div class="acc-block-sub" id="accPlayed">0 spilt</div>
+      </div>
+      <div class="acc-divider"></div>
+      <div class="acc-stat">
+        <div class="acc-mini-ring">
+          <svg viewBox="0 0 52 52" width="40" height="40">
+            <circle class="ring-bg"   cx="26" cy="26" r="22"/>
+            <circle class="ring-fill" id="kamperRingFill" cx="26" cy="26" r="22" stroke-dasharray="138.2" stroke-dashoffset="138.2"/>
+          </svg>
+          <div class="mini-ring-text" id="kamperPct">-</div>
+        </div>
+        <div class="acc-stat-frac" id="kamperFrac">-/-</div>
+        <div class="acc-stat-lbl">Kamper<br>riktig utfall</div>
+      </div>
+      <div class="acc-divider"></div>
+      <div class="acc-stat">
+        <div class="acc-mini-ring">
+          <svg viewBox="0 0 52 52" width="40" height="40">
+            <circle class="ring-bg"   cx="26" cy="26" r="22"/>
+            <circle class="ring-fill" id="scoreRingFill" cx="26" cy="26" r="22" stroke-dasharray="138.2" stroke-dashoffset="138.2"/>
+          </svg>
+          <div class="mini-ring-text" id="scorePct">-</div>
+        </div>
+        <div class="acc-stat-frac" id="scoreFrac">-/-</div>
+        <div class="acc-stat-lbl">Eksakt<br>resultat</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" data-filter="aktive">Kommende</button>
+  <button class="tab" data-filter="spilt">Ferdige</button>
+  <button class="tab" data-filter="alle">Alle</button>
+  <button class="cond-btn" onclick="openConditions()">Datagrunnlag</button>
+</div>
+
+<div class="cond-overlay" id="condOverlay">
+  <div class="cond-panel">
+    <div class="cond-header">
+      <h2>Datagrunnlag</h2>
+      <button class="close-btn" onclick="closeConditions()">✕</button>
+    </div>
+    <div class="cond-body">
+      <p class="cond-intro">Disse faktorene vektlegges ved analyse av hver enkelt kamp:</p>
+      <div class="cond-item"><span class="cond-icon">📊</span><div class="cond-text"><strong>Turneringsform</strong><span>Resultater, mål og prestasjoner i dette VM - ikke tidligere turneringer.</span></div></div>
+      <div class="cond-item"><span class="cond-icon">🎯</span><div class="cond-text"><strong>xG - Forventede mål</strong><span>Angrepsstyrke (xG) og defensiv soliditet (xGA) per kamp, hentet fra Opta og lignende modeller.</span></div></div>
+      <div class="cond-item"><span class="cond-icon">📈</span><div class="cond-text"><strong>Markedets O/U-linje</strong><span>Over/under-linjen fra bookmakers brukes som primær guide for antall mål. Er O/U -137, lener markedet klart mot over.</span></div></div>
+      <div class="cond-item"><span class="cond-icon">🛡️</span><div class="cond-text"><strong>Defensiv statistikk</strong><span>xGA per kamp, clean sheets, berøringer tillatt i feltet per 90 min, og evne til å sitte i kompakt blokk.</span></div></div>
+      <div class="cond-item"><span class="cond-icon">⚡</span><div class="cond-text"><strong>Individuelle X-faktorer</strong><span>Toppscoreres form, scorer-odds og xG-bidrag. Hvem over-presterer og hvem er moden for regress mot mean?</span></div></div>
+      <div class="cond-item"><span class="cond-icon">🏥</span><div class="cond-text"><strong>Skader og suspensjoner</strong><span>Bekreftet fravær av nøkkelspillere og hvordan det påvirker taktikk, angrepsstyrke og defensiv stabilitet.</span></div></div>
+      <div class="cond-item"><span class="cond-icon">⚔️</span><div class="cond-text"><strong>Innbyrdes oppgjør (H2H)</strong><span>Historiske møter mellom lagene, med særlig vekt på knockout-kamper og VM-spesifikke møter.</span></div></div>
+      <div class="cond-item"><span class="cond-icon">🧮</span><div class="cond-text"><strong>Statistiske modeller</strong><span>Opta supercomputer, Kalshi-tradere og implisitte sannsynligheter fra oddsmarkedet sammenlignes.</span></div></div>
+      <div class="cond-item"><span class="cond-icon">🏟️</span><div class="cond-text"><strong>Spillested og hjemmebane</strong><span>Stadion, publikumsforhold og geografisk nærhet til hjemland. Historisk rekord på gjeldende arena.</span></div></div>
+      <div class="cond-item"><span class="cond-icon">⛰️</span><div class="cond-text"><strong>Høyde og klima</strong><span>Altitude der det er relevant (Azteca: 2200 moh). For utendørs stadion vurderes også temperatur og fuktighet - lag fra varmere klimaer har fysiologisk fordel i ekstremvarme (35-40°C i Houston/Dallas i juli), mens nordeuropeiske lag er mer utsatte. Gjelder kun utendørs arenaer der klimaforskjellen mellom lagene er tydelig.</span></div></div>
+      <div class="cond-item"><span class="cond-icon">📉</span><div class="cond-text"><strong>Odds-bevegelse</strong><span>Endringer i odds pre-kamp avslører informert penger fra markedet og kan indikere lagnyhet eller skader.</span></div></div>
+      <div class="cond-item"><span class="cond-icon">🗞️</span><div class="cond-text"><strong>Ferske lagnyheter</strong><span>Forventet startellever, treningsrapporter og siste informasjon fra pressemøter dagen før kamp.</span></div></div>
+      <div class="cond-item"><span class="cond-icon">🔄</span><div class="cond-text"><strong>Momentum og psykologi</strong><span>Knockout-erfaring, evne til snuoperasjoner, og om laget har vunnet tøffe kamper i press-situasjoner.</span></div></div>
+      <div class="cond-item"><span class="cond-icon">🏆</span><div class="cond-text"><strong>VM-historikk per lag</strong><span>Laget sin historiske knockout-rekord i VM, inkludert straffespark-statistikk og opptreden i sene kamper.</span></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="grid"     id="grid"></div>
+<div class="no-results" id="noResults" style="display:none">Ingen kamper for dette filteret.</div>
+<div class="error-box"  id="errorBox"  style="display:none"></div>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-teams" id="modalTeams"></div>
+        <div class="modal-meta"  id="modalMeta"></div>
+      </div>
+      <button class="close-btn" id="closeBtn">✕</button>
+    </div>
+    <div class="modal-tabs" id="modalTabs"></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+let DATA = [];
+
+function accColor(pct) {
+  if (pct >= 80) return "var(--green)";
+  if (pct >= 60) return "var(--orange)";
+  return "var(--red)";
+}
+function calcAcc(fasit) {
+  if (!fasit) return null;
+  const treff = fasit.items.filter(i => i.treff).length;
+  return { treff, total: fasit.items.length, pct: Math.round((treff / fasit.items.length) * 100) };
+}
+function globalAcc() {
+  const played = DATA.filter(p => p.fasit);
+  if (!played.length) return null;
+  let t = 0, m = 0;
+  played.forEach(p => { const a = calcAcc(p.fasit); t += a.treff; m += a.total; });
+  return { treff: t, total: m, pct: Math.round((t / m) * 100), kamper: played.length };
+}
+function impliedPct(odds) { return Math.round((1 / odds) * 100); }
+
+// ── Cards ─────────────────────────────────────────────────────────────────────
+function renderCards(filter) {
+  const grid = document.getElementById("grid");
+  const noResults = document.getElementById("noResults");
+  grid.innerHTML = "";
+  let shown = 0;
+
+  DATA.forEach(p => {
+    if (filter === "aktive" ? p.status === "spilt" : filter !== "alle" && p.status !== filter) return;
+    shown++;
+    const isStub = !p.prediksjon;
+    const acc = calcAcc(p.fasit);
+    const card = document.createElement("div");
+    card.className = isStub ? "card stub" : `card status-${p.status}`;
+    card.dataset.id = p.id;
+
+    const tidHtml = p.tidspunkt ? ` · <span class="meta-time">${p.tidspunkt}</span>` : "";
+
+    if (isStub) {
+      card.innerHTML = `
+        <div class="card-header">
+          <span class="card-badge badge-ingen">Ingen analyse</span>
+        </div>
+        <div class="card-matchup">
+          <div class="card-team-block">
+            <span class="flag">${p.hjemmelag.flagg}</span>
+            <span class="name" style="color:var(--muted)">${p.hjemmelag.navn}</span>
+          </div>
+          <span class="card-vs">vs</span>
+          <div class="card-team-block">
+            <span class="flag">${p.bortelag.flagg}</span>
+            <span class="name" style="color:var(--muted)">${p.bortelag.navn}</span>
+          </div>
+        </div>
+        <div class="card-meta">
+          <div class="meta-date">${p.datoVis}${tidHtml}</div>
+          <div class="meta-arena">${p.arena.split(",")[0]}</div>
+        </div>
+        <div style="font-size:0.7rem;color:var(--muted);text-align:center;opacity:0.6;letter-spacing:0.04em">Analyse kommer</div>`;
+    } else {
+      const badgeText = { spilt: "Spilt", idag: "I dag", kommende: "Kommende" }[p.status] || p.status;
+      const resItem_   = p.fasit && p.fasit.items && p.fasit.items.find(i => i.label.toLowerCase().startsWith("resultat"));
+      const scoreItem_ = p.fasit && p.fasit.items && p.fasit.items.find(i => i.label.toLowerCase().startsWith("score"));
+      let scoreHtml;
+      if (p.status === "spilt" && p.fasit) {
+        const col_ = (scoreItem_ && scoreItem_.treff) ? "var(--green)"
+                   : (resItem_   && resItem_.treff)   ? "var(--orange)"
+                   : "var(--red)";
+        scoreHtml = `<div class="card-scores">
+          <div class="score-col">
+            <div class="score-val" style="color:var(--muted);font-size:0.82rem">${p.prediksjon.score}</div>
+            <div class="score-lbl">Predikert</div>
+          </div>
+          <span class="score-sep">→</span>
+          <div class="score-col">
+            <div class="score-val" style="color:${col_};font-size:1.25rem">${p.fasit.score}</div>
+            <div class="score-lbl">Fasit</div>
+          </div>
+        </div>`;
+      } else {
+        scoreHtml = `<div class="card-score-pred">${p.prediksjon.score}<small>Predikert score</small></div>`;
+      }
+      let accHtml = "";
+      if (acc) {
+        const c = accColor(acc.pct);
+        accHtml = `<div class="card-accuracy">
+          <div class="acc-bar-wrap"><div class="acc-bar" style="width:${acc.pct}%;background:${c}"></div></div>
+          <span class="acc-label" style="color:${c}">${acc.pct}%</span>
+        </div>`;
+      }
+      card.innerHTML = `
+        <div class="card-header">
+          <span class="card-badge badge-${p.status}">${badgeText}</span>
+        </div>
+        <div class="card-matchup">
+          <div class="card-team-block">
+            <span class="flag">${p.hjemmelag.flagg}</span>
+            <span class="name">${p.hjemmelag.navn}</span>
+          </div>
+          <span class="card-vs">vs</span>
+          <div class="card-team-block">
+            <span class="flag">${p.bortelag.flagg}</span>
+            <span class="name">${p.bortelag.navn}</span>
+          </div>
+        </div>
+        <div class="card-meta">
+          <div class="meta-date">${p.datoVis}${tidHtml}</div>
+          <div class="meta-arena">${p.arena.split(",")[0]}</div>
+        </div>
+        ${scoreHtml}
+        ${accHtml}`;
+      card.addEventListener("click", () => openModal(p.id));
+    }
+    grid.appendChild(card);
+  });
+  noResults.style.display = shown === 0 ? "block" : "none";
+}
+
+// ── Global accuracy ring ──────────────────────────────────────────────────────
+function renderGlobalAcc() {
+  const acc = globalAcc();
+  const fill = document.getElementById("ringFill");
+  const text = document.getElementById("ringText");
+  const C = 2 * Math.PI * 22;
+
+  // Kamper (riktig utfall) og eksakt score
+  const played = DATA.filter(p => p.fasit && p.fasit.items);
+  let kamperRiktig = 0, kamperTotal = 0, scoreRiktig = 0, scoreTotal = 0;
+  played.forEach(p => {
+    const res   = p.fasit.items.find(i => i.label.toLowerCase().startsWith("resultat"));
+    const score = p.fasit.items.find(i => i.label.toLowerCase().startsWith("score"));
+    if (res)   { kamperTotal++;  if (res.treff)   kamperRiktig++; }
+    if (score) { scoreTotal++;   if (score.treff)  scoreRiktig++;  }
+  });
+  const setStatEl = (fracId, pctId, fillId, riktig, total) => {
+    if (total === 0) return;
+    const pct = Math.round((riktig / total) * 100);
+    const col = accColor(pct);
+    document.getElementById(fracId).textContent = `${riktig}/${total}`;
+    document.getElementById(fracId).style.color = col;
+    const pctEl = document.getElementById(pctId);
+    pctEl.textContent = pct + "%";
+    pctEl.style.color = col;
+    const fillEl = document.getElementById(fillId);
+    if (fillEl) {
+      fillEl.style.strokeDashoffset = C * (1 - pct / 100);
+      fillEl.style.stroke = col;
+    }
+  };
+  setStatEl("kamperFrac", "kamperPct", "kamperRingFill", kamperRiktig, kamperTotal);
+  setStatEl("scoreFrac",  "scorePct",  "scoreRingFill",  scoreRiktig,  scoreTotal);
+
+  // Ring (totale tips)
+  if (!acc) {
+    fill.style.strokeDashoffset = C;
+    text.textContent = "-";
+    document.getElementById("accSummary").textContent = "- / - treff";
+    document.getElementById("accPlayed").textContent  = "0 kamper spilt";
+    return;
+  }
+  const col = accColor(acc.pct);
+  fill.style.strokeDashoffset = C * (1 - acc.pct / 100);
+  fill.style.stroke = col;
+  text.style.color  = col;
+  text.textContent  = acc.pct + "%";
+  document.getElementById("accSummary").textContent = `${acc.treff} / ${acc.total} treff`;
+  document.getElementById("accPlayed").textContent  = `${acc.kamper} kamp${acc.kamper > 1 ? "er" : ""} spilt`;
+}
+
+// ── Modal content builders ────────────────────────────────────────────────────
+const nivåLabel = { garantert: "Nær garantert", sannsynlig: "Sannsynlig", mulig: "Mulig" };
+
+function buildAnalyse(p) {
+  const pr = p.prediksjon;
+  let h = "";
+
+  h += `<div>
+    <div class="section-label">Prediksjon</div>
+    <div class="pred-score-box">
+      <div class="pred-score">${pr.score}</div>
+      <div class="pred-scenario">
+        <div class="primary">${pr.primær}</div>
+        <div class="alt">${pr.alt}</div>
+        <div class="alt" style="margin-top:0.3rem;color:var(--gold)">${pr.overUnder}</div>
+      </div>
+    </div>
+  </div>`;
+
+  h += `<div><div class="section-label">Sannsynligheter</div>`;
+  pr.sannsynlighet.forEach(s => {
+    h += `<div class="prob-row">
+      <span class="prob-label">${s.label}</span>
+      <div class="prob-track"><div class="prob-fill" style="width:${s.pct}%;background:${s.farge}"></div></div>
+      <span class="prob-val">${s.pct}%</span>
+    </div>`;
+  });
+  h += `</div>`;
+
+  h += `<div><div class="section-label">Predikerte scorere / skyttere</div><div class="scorer-list">`;
+  pr.scorer.forEach(s => {
+    h += `<div class="scorer-row">
+      <span class="scorer-badge badge-${s.nivå}">${nivåLabel[s.nivå]}</span>
+      <span class="scorer-name">${s.spiller}</span>
+      <span class="scorer-team">${s.lag}</span>
+    </div>`;
+  });
+  h += `</div></div>`;
+
+  h += `<div>
+    <div class="section-label">Konklusjon</div>
+    <p style="font-size:0.85rem;line-height:1.6;color:var(--text)">${pr.konklusjon}</p>
+  </div>`;
+
+  if (p.fasit) {
+    const acc = calcAcc(p.fasit);
+    const col = accColor(acc.pct);
+    h += `<div>
+      <div class="section-label">Fasit - hva skjedde</div>
+      <div class="actual-result">
+        <div class="actual-score">${p.fasit.score} <small style="font-size:0.85rem;font-weight:400">${p.fasit.utfall}</small></div>
+        <div class="actual-scorers">⚽ ${p.fasit.scorer}</div>
+        <div class="actual-stats">📊 ${p.fasit.stats}</div>
+        ${p.fasit.notat ? `<div class="actual-stats" style="margin-top:0.35rem;font-style:italic">${p.fasit.notat}</div>` : ""}
+      </div>
+    </div>
+    <div>
+      <div class="section-label">Treffsikkerhet</div>
+      <div class="accuracy-report">
+        <div class="accuracy-report-header">
+          <strong>${acc.treff} av ${acc.total} treff</strong>
+          <span class="acc-pct-badge" style="background:${col}22;color:${col}">${acc.pct}%</span>
+        </div>
+        ${p.fasit.items.map(item => `
+          <div class="acc-item">
+            <span class="acc-icon">${item.treff ? "✅" : "❌"}</span>
+            <span class="acc-item-label">${item.label}</span>
+            ${item.notat ? `<span class="acc-item-note">${item.notat}</span>` : ""}
+          </div>`).join("")}
+      </div>
+    </div>`;
+  }
+  return h;
+}
+
+function buildOdds(p) {
+  if (!p.odds) return `<p style="color:var(--muted);font-size:0.85rem">Ingen odds-data tilgjengelig for denne kampen.</p>`;
+  const o = p.odds;
+  let h = "";
+
+  // Match result odds
+  h += `<div><div class="section-label">Kampresultat odds</div>
+    <table class="odds-table">
+      <thead><tr>
+        <th>Utfall</th>
+        <th class="right">Odds</th>
+        <th class="right">Impl. sjanse</th>
+        <th class="right">Min pred.</th>
+      </tr></thead>
+      <tbody>`;
+  o.kampresultat.forEach((r, i) => {
+    const impl = impliedPct(r.odds);
+    const myPct = p.prediksjon.sannsynlighet[i] ? p.prediksjon.sannsynlighet[i].pct : "-";
+    const diff = typeof myPct === "number" ? myPct - impl : null;
+    const diffStr = diff !== null
+      ? `<span style="color:${diff > 2 ? "var(--green)" : diff < -2 ? "var(--red)" : "var(--muted)"}">${myPct}%</span>`
+      : `${myPct}%`;
+    h += `<tr>
+      <td class="name-cell">${r.label}</td>
+      <td class="odds-cell">${r.odds.toFixed(2)}</td>
+      <td class="impl-cell">${impl}%</td>
+      <td class="pred-cell">${diffStr}</td>
+    </tr>`;
+  });
+  h += `</tbody></table></div>`;
+
+  // Player odds - all three markets
+  h += `<div><div class="section-label">Spillerodds -scorer</div>
+    <table class="odds-table">
+      <thead><tr>
+        <th>Spiller</th>
+        <th>Lag</th>
+        <th class="right" title="Anytime scorer">Scorer</th>
+      </tr></thead>
+      <tbody>`;
+
+  const sorted = [...o.spillerOdds].sort((a, b) => {
+    const aMin = Math.min(...[a.scorer, a.skuddPåMål, a.skudd].filter(v => v !== null));
+    const bMin = Math.min(...[b.scorer, b.skuddPåMål, b.skudd].filter(v => v !== null));
+    return aMin - bMin;
+  });
+
+  sorted.forEach(s => {
+    const fmtOdds = (v) => v !== null
+      ? `<span class="${v < 2.0 ? "odds-highlight" : ""}">${v.toFixed(2)}</span>`
+      : `<span class="odds-missing">-</span>`;
+    h += `<tr>
+      <td class="name-cell">${s.spiller}${s.estimert ? `<span class="est-badge">est.</span>` : ""}</td>
+      <td class="team-cell">${s.lag}</td>
+      <td class="odds-cell">${fmtOdds(s.scorer)}</td>
+    </tr>`;
+  });
+  h += `</tbody></table></div>`;
+
+  h += `<p class="odds-source">Kilde: ${o.kilde} · "est." = estimert odds</p>`;
+
+  return h;
+}
+
+// ── Deep-link helpers ─────────────────────────────────────────────────────────
+function toSlug(str) {
+  return str.toLowerCase()
+    .replace(/[øö]/g, 'o').replace(/æ/g, 'ae').replace(/å/g, 'a')
+    .replace(/[éèê]/g, 'e').replace(/[üú]/g, 'u').replace(/[íì]/g, 'i')
+    .replace(/[àáâ]/g, 'a').replace(/ñ/g, 'n').replace(/ç/g, 'c')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+function findByHash(hash) {
+  if (!hash) return null;
+  return DATA.find(p => p.id === hash)
+      || DATA.find(p => toSlug(p.hjemmelag.navn) + '-' + toSlug(p.bortelag.navn) === hash)
+      || DATA.find(p => toSlug(p.bortelag.navn)  + '-' + toSlug(p.hjemmelag.navn) === hash);
+}
+function handleHash() {
+  const hash = window.location.hash.slice(1);
+  const p = findByHash(hash);
+  if (p && p.prediksjon) openModal(p.id, true);
+}
+
+// ── Modal open/close ──────────────────────────────────────────────────────────
+function openModal(id, fromHash) {
+  const p = DATA.find(x => x.id === id);
+  if (!p) return;
+
+  document.getElementById("modalTeams").innerHTML = `
+    <div class="modal-team"><span class="flag">${p.hjemmelag.flagg}</span><span class="name">${p.hjemmelag.navn}</span></div>
+    <span class="modal-vs">vs</span>
+    <div class="modal-team"><span class="flag">${p.bortelag.flagg}</span><span class="name">${p.bortelag.navn}</span></div>`;
+  document.getElementById("modalMeta").textContent = `${p.datoVis}${p.tidspunkt ? " kl. " + p.tidspunkt : ""} · ${p.runde} · ${p.arena}`;
+
+  // Tabs
+  const tabDefs = [
+    { key: "analyse", label: "Analyse" + (p.fasit ? " + Fasit" : "") },
+    { key: "odds",    label: "Odds" },
+  ];
+  const tabsEl = document.getElementById("modalTabs");
+  tabsEl.innerHTML = tabDefs.map((t, i) =>
+    `<button class="modal-tab${i === 0 ? " active" : ""}" data-panel="${t.key}">${t.label}</button>`
+  ).join("");
+
+  // Panels
+  const bodyEl = document.getElementById("modalBody");
+  bodyEl.style.padding = "1.75rem";
+  bodyEl.innerHTML = `
+    <div class="tab-panel active" data-panel="analyse">${buildAnalyse(p)}</div>
+    <div class="tab-panel"        data-panel="odds">${buildOdds(p)}</div>`;
+
+  // Tab switching
+  tabsEl.querySelectorAll(".modal-tab").forEach(btn => {
+    btn.addEventListener("click", () => {
+      tabsEl.querySelectorAll(".modal-tab").forEach(b => b.classList.remove("active"));
+      bodyEl.querySelectorAll(".tab-panel").forEach(pn => pn.classList.remove("active"));
+      btn.classList.add("active");
+      bodyEl.querySelector(`[data-panel="${btn.dataset.panel}"]`).classList.add("active");
+    });
+  });
+
+  if (!fromHash) history.pushState({ modalId: id }, '', '#' + id);
+  document.getElementById("overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  document.getElementById("overlay").classList.remove("open");
+  document.body.style.overflow = "";
+  if (window.location.hash) history.pushState(null, '', location.pathname + location.search);
+}
+
+// ── Event listeners ───────────────────────────────────────────────────────────
+document.querySelectorAll(".tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    renderCards(tab.dataset.filter);
+  });
+});
+document.getElementById("closeBtn").addEventListener("click", closeModal);
+document.getElementById("overlay").addEventListener("click", e => {
+  if (e.target === document.getElementById("overlay")) closeModal();
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") { closeModal(); closeConditions(); } });
+
+function openConditions() {
+  document.getElementById("condOverlay").classList.add("open");
+}
+function closeConditions() {
+  document.getElementById("condOverlay").classList.remove("open");
+}
+document.getElementById("condOverlay").addEventListener("click", e => {
+  if (e.target === document.getElementById("condOverlay")) closeConditions();
+});
+window.addEventListener("popstate", () => {
+  if (window.location.hash) handleHash();
+  else closeModal();
+});
+
+// ── Load JSON ─────────────────────────────────────────────────────────────────
+fetch("prediksjoner.json")
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(data => { DATA = data; renderCards("aktive"); renderGlobalAcc(); handleHash(); })
+  .catch(() => {
+    document.getElementById("errorBox").style.display = "block";
+    document.getElementById("errorBox").innerHTML = `
+      <strong style="color:var(--red)">Kunne ikke laste prediksjoner.json</strong><br><br>
+      Nettleseren blokkerer filinnlasting direkte fra disk. Start en lokal server:<br><br>
+      <code>python -m http.server 8080</code><br><br>
+      Åpne deretter: <code>http://localhost:8080/prediksjoner.html</code><br><br>
+      Eller dobbeltklikk på <code>start.bat</code> i samme mappe.`;
+  });
+</script>
+</body>
+</html>
