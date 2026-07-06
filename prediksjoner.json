@@ -1177,7 +1177,7 @@
     "bortelag":  { "navn": "Norge",  "flagg": "🇳🇴" },
     "arena": "MetLife Stadium, East Rutherford",
     "runde": "R16",
-    "status": "kommende",
+    "status": "spilt",
     "prediksjon": {
       "score": "2 - 1",
       "primær": "Brasil 2-1 Norge",
@@ -1214,7 +1214,23 @@
         { "spiller": "Endrick",           "lag": "Brasil", "scorer": 5.00, "skuddPåMål": null, "skudd": null, "estimert": true }
       ]
     },
-    "fasit": null
+    "fasit": {
+      "score": "1 - 2",
+      "utfall": "Norge seier ✅",
+      "scorer": "Erling Haaland (Norge, 79') · Erling Haaland (Norge, 84') · Neymar pen. (Brasil, 90+4')",
+      "stats": "Nyland reddet Guimarães-straffe i 1. omgang. Schjelderup med begge assist til Haaland. Brasil tidligst ute siden 1990.",
+      "notat": "Haaland headet inn fra Schjelderup-innlegg i 79' og doblet med opphengt avslutning i 84'. Neymar reduserte på straffe i 90+4' men det var for sent. Haaland opp til 7 VM-mål (delt toppscorer). Norge til kvartfinale mot England i Miami Gardens.",
+      "items": [
+        { "label": "Resultat - Brasil seier",           "treff": false, "notat": "Norge vant 2-1" },
+        { "label": "Score - 2-1 Brasil (eksakt)",        "treff": false, "notat": "Ble 1-2 til Norge" },
+        { "label": "Over 2.5 mål",                       "treff": true,  "notat": "3 mål totalt" },
+        { "label": "Scorer - Haaland (garantert)",        "treff": true,  "notat": "Brace: 79' og 84' - begge fra Schjelderup" },
+        { "label": "Scorer - Vinicius Jr. (garantert)",  "treff": false, "notat": "Scoret ikke - Neymar str. (90+4')" },
+        { "label": "Scorer - Cunha (sannsynlig)",         "treff": false, "notat": "Scoret ikke" },
+        { "label": "Scorer - Martinelli (mulig)",         "treff": false, "notat": "Scoret ikke" },
+        { "label": "Scorer - Ødegaard (mulig)",           "treff": false, "notat": "Scoret ikke" }
+      ]
+    }
   },
   {
     "id": "mex-eng",
@@ -1225,7 +1241,7 @@
     "bortelag":  { "navn": "England", "flagg": "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
     "arena": "Estadio Azteca, Mexico City",
     "runde": "R16",
-    "status": "kommende",
+    "status": "spilt",
     "prediksjon": {
       "score": "1 - 0",
       "primær": "Mexico 1-0 England",
@@ -1261,7 +1277,23 @@
         { "spiller": "Roberto Alvarado", "lag": "Mexico",  "scorer": 5.50, "skuddPåMål": null, "skudd": null, "estimert": true }
       ]
     },
-    "fasit": null
+    "fasit": {
+      "score": "2 - 3",
+      "utfall": "England seier ✅",
+      "scorer": "Jude Bellingham (England, 36') · Jude Bellingham (England, 38') · Julián Quiñones (Mexico, 42') · Harry Kane pen. (England, 2. omg.) · Raúl Jiménez pen. (Mexico, 2. omg.)",
+      "stats": "England spilte siste 36 min med 10 mann. Mexicos første VM-tap hjemme på Azteca noensinne.",
+      "notat": "Bellingham-brace på 98 sekunder (36' og 38') for 0-2. Quiñones reduserte fra hjørnekick (42') -pause 1-2. Quansah rødt kort (54') etter VAR. Kane satte inn 1-3 på straffe. Jiménez reduserte på VAR-straffe. England med 10 mann holdt unna til slutt. Mexico-Azteca-rekorden strekker seg siden 1986.",
+      "items": [
+        { "label": "Resultat - Mexico seier",          "treff": false, "notat": "England vant 3-2" },
+        { "label": "Score - 1-0 Mexico (eksakt)",       "treff": false, "notat": "Ble 2-3 til England" },
+        { "label": "Under 2.5 mål",                     "treff": false, "notat": "5 mål totalt" },
+        { "label": "Scorer - Jimenez (garantert)",       "treff": true,  "notat": "Straffemål i 2. omgang" },
+        { "label": "Scorer - Kane (sannsynlig)",         "treff": true,  "notat": "Straffemål for 1-3" },
+        { "label": "Scorer - Quinones (sannsynlig)",     "treff": true,  "notat": "Scoret i 42' fra hjørnekick" },
+        { "label": "Scorer - Bellingham (mulig)",        "treff": true,  "notat": "Brace: 36' og 38' -98 sekunder mellom målene" },
+        { "label": "Scorer - Alvarado (mulig)",          "treff": false, "notat": "Scoret ikke" }
+      ]
+    }
   },
   {
     "id": "por-spa",
@@ -1272,7 +1304,7 @@
     "bortelag":  { "navn": "Spania",   "flagg": "🇪🇸" },
     "arena": "AT&T Stadium, Arlington",
     "runde": "R16",
-    "status": "kommende",
+    "status": "spilt",
     "prediksjon": {
       "score": "0 - 1",
       "primær": "Spania 1-0 Portugal",
@@ -1309,7 +1341,24 @@
         { "spiller": "Dani Olmo",        "lag": "Spania",   "scorer": 4.00, "skuddPåMål": null, "skudd": null, "estimert": true }
       ]
     },
-    "fasit": null
+    "fasit": {
+      "score": "0 - 1",
+      "utfall": "Spania seier ✅",
+      "scorer": "Mikel Merino (Spania, 90+1')",
+      "stats": "Spania 5 strake clean sheets i turneringen. Merino scoret som innbytter i tillegg av tid. 70 649 tilskuere.",
+      "notat": "Kampen var låst i 90 minutter -Portugal satt kompakt og holdt Spania unna. Innbytter Ferran Torres skar inn og spilte til Merino i 90+1'. Merino chipset enkelt over Diogo Costa. Ronaldo (41) avsluttet sitt siste VM-sluttspilloppgjør uten mål. Spania til kvartfinale uten å slippe inn ett eneste mål i hele turneringen.",
+      "items": [
+        { "label": "Resultat - Spania seier",        "treff": true },
+        { "label": "Score - 1-0 Spania (eksakt)",    "treff": true,  "notat": "Perfekt treff! 🎯" },
+        { "label": "Under 1.5 mål",                  "treff": true,  "notat": "1 mål totalt" },
+        { "label": "Scorer - Oyarzabal (garantert)",  "treff": false, "notat": "Merino scoret som innbytter (90+1')" },
+        { "label": "Scorer - Yamal (sannsynlig)",     "treff": false, "notat": "Scoret ikke" },
+        { "label": "Scorer - Williams (mulig)",       "treff": false, "notat": "Scoret ikke" },
+        { "label": "Scorer - Olmo (mulig)",           "treff": false, "notat": "Scoret ikke" },
+        { "label": "Scorer - Ronaldo (mulig)",        "treff": false, "notat": "Scoret ikke - siste VM-kamp" },
+        { "label": "Scorer - Ramos (mulig)",          "treff": false, "notat": "Scoret ikke" }
+      ]
+    }
   },
   {
     "id": "usa-bel",
