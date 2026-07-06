@@ -1322,23 +1322,23 @@
     "runde": "R16",
     "status": "kommende",
     "prediksjon": {
-      "score": "1 - 2",
-      "primær": "Belgia 2-1 USA",
-      "alt": "Alt: 1-1 e.e.t. / USA 2-1",
+      "score": "1 - 0",
+      "primær": "USA 1-0 Belgia",
+      "alt": "Alt: 1-1 e.e.t. / Belgia 1-0",
       "sannsynlighet": [
-        { "label": "USA seier",    "pct": 24, "farge": "#3b82f6" },
-        { "label": "Uavgjort",     "pct": 26, "farge": "#94a3b8" },
-        { "label": "Belgia seier", "pct": 50, "farge": "#ef4444" }
+        { "label": "USA seier",    "pct": 40, "farge": "#3b82f6" },
+        { "label": "Uavgjort",     "pct": 28, "farge": "#94a3b8" },
+        { "label": "Belgia seier", "pct": 32, "farge": "#ef4444" }
       ],
-      "overUnder": "Over 2.5 mål",
-      "konklusjon": "NØKKELNYHET: Folarin Balogun er utestengt (rødt kort mot Bosnia), og Haji Wright starter som USAs spiss. Uten Balogun mangler USA sin beste målscorer og Belgias jobb er vesentlig lettere. Belgia leder turneringens xG-tabell med 9.68 forventede mål på 4 kamper (2.42/90). Lukaku (2 mål + assist, xG 1.27) er turneringens korteste scorer-favoritt her, og De Bruyne (xG 1.49) er fremdeles turneringens farligste pasningsspiller. Courtois i mål er en gigantisk fordel. USA har Pulisic og Tillman, men dybden er klart svakere. Lumen Field i Seattle er utendørs, men Juli-klima i Seattle er mildt (ca 18-20°C) -ingen klimafordel. Belgias snuoperasjon fra 0-2 til 3-2 mot Senegal viser mental styrke. Med Balogun ute er Belgia nå tydelige favoritter.",
+      "overUnder": "Under 2.5 mål",
+      "konklusjon": "NØKKELNYHET: Balogun-suspensjonen er omgjort av FIFA etter Trump-Infantino-telefonsamtale. Balogun starter og er USAs nøkkelspiller. Markedet har snudd -USA er nå marginale favoritter (FanDuel: USA +150, Belgia +175, uavgjort +240). Under 2.5 mål prises til -158, turneringens sterkeste Under-signal. Belgias H2H-historikk er imidlertid brutal: 6 strake seirer over USA, inkludert 5-2-seier i vennskapskamp så sent som mars 2026, og knockout av USA i 2014-VM. Belgia er på 17 strake ubeseiret (W11 D6), genererer 2.13 xG per 90 og har Lukaku (2 mål + assist), De Bruyne (xG 1.49) og Courtois -en komplett toppnasjon. USA-fordeler: Lumen Field i Seattle gir sterk hjemmepublikum-effekt, Balogun tilbake, Pulisic i toppform og Pochettino ble hentet nettopp for å slå Belgia. Under -158 er markedets dom -én avgjørende scoring er det realistiske scenariet.",
       "scorer": [
+        { "spiller": "Folarin Balogun",  "lag": "USA",    "nivå": "garantert" },
         { "spiller": "Romelu Lukaku",    "lag": "Belgia", "nivå": "garantert" },
         { "spiller": "Christian Pulisic","lag": "USA",    "nivå": "sannsynlig" },
-        { "spiller": "Lois Openda",      "lag": "Belgia", "nivå": "mulig" },
-        { "spiller": "Weston McKennie",  "lag": "USA",    "nivå": "mulig" },
         { "spiller": "Kevin De Bruyne",  "lag": "Belgia", "nivå": "mulig" },
-        { "spiller": "Malik Tillman",    "lag": "USA",    "nivå": "mulig" }
+        { "spiller": "Weston McKennie",  "lag": "USA",    "nivå": "mulig" },
+        { "spiller": "Lois Openda",      "lag": "Belgia", "nivå": "mulig" }
       ]
     },
     "odds": {
