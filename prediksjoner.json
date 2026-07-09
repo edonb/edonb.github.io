@@ -1369,7 +1369,7 @@
     "bortelag":  { "navn": "Belgia", "flagg": "🇧🇪" },
     "arena": "Lumen Field, Seattle",
     "runde": "R16",
-    "status": "kommende",
+    "status": "spilt",
     "prediksjon": {
       "score": "1 - 0",
       "primær": "USA 1-0 Belgia",
@@ -1406,7 +1406,24 @@
         { "spiller": "Malik Tillman",    "lag": "USA",    "scorer": 5.50, "skuddPåMål": null, "skudd": null, "estimert": true }
       ]
     },
-    "fasit": null
+    "fasit": {
+      "score": "1 - 4",
+      "utfall": "Belgia seier ❌",
+      "scorer": "Charles De Ketelaere (Belgia, 9') · Malik Tillman (USA, 31') · Charles De Ketelaere (Belgia, 33') · Hans Vanaken (Belgia, 57') · Romelu Lukaku (Belgia, 90+3')",
+      "stats": "Belgia dominerte fullstendig fra 1. minutt. De Ketelaere involvert i 3 av 4 mål (2 mål + 1 assist).",
+      "notat": "De Ketelaere åpnet scoring med tap-in av Raskins stikk i 9'. Tillman utlignet via deflektert frispark i 31'. De Ketelaere headet inn fra Trossard-innlegg for 2-1 i 33'. Vanaken la på 3-1 i 57' etter at De Ketelaere stjal ballen fra USAs keeper Freese utenfor eget felt. Lukaku satte punktum i 90+3'. Balogun -mannen Belgia fryktet mest- scoret aldri. De Ketelaere kalte det 'karrierehøydepunktet'. Belgia møter Spania i kvartfinalen.",
+      "items": [
+        { "label": "Resultat - USA seier",           "treff": false, "notat": "Belgia vant 4-1" },
+        { "label": "Score - 1-0 USA (eksakt)",        "treff": false, "notat": "Ble 1-4 til Belgia" },
+        { "label": "Under 2.5 mål",                   "treff": false, "notat": "5 mål totalt" },
+        { "label": "Scorer - Balogun (garantert)",    "treff": false, "notat": "Tillman scoret for USA (ikke Balogun)" },
+        { "label": "Scorer - Lukaku (garantert)",     "treff": true,  "notat": "Scoret i 90+3'" },
+        { "label": "Scorer - Pulisic (sannsynlig)",   "treff": false, "notat": "Scoret ikke" },
+        { "label": "Scorer - De Bruyne (mulig)",      "treff": false, "notat": "Vanaken og De Ketelaere scoret" },
+        { "label": "Scorer - McKennie (mulig)",       "treff": false, "notat": "Scoret ikke" },
+        { "label": "Scorer - Openda (mulig)",         "treff": false, "notat": "Scoret ikke" }
+      ]
+    }
   },
   {
     "id": "arg-egy",
@@ -1417,7 +1434,7 @@
     "bortelag":  { "navn": "Egypt",     "flagg": "🇪🇬" },
     "arena": "Mercedes-Benz Stadium, Atlanta",
     "runde": "R16",
-    "status": "kommende",
+    "status": "spilt",
     "prediksjon": {
       "score": "2 - 0",
       "primær": "Argentina 2-0 Egypt",
@@ -1454,7 +1471,24 @@
         { "spiller": "Mac Allister",     "lag": "Argentina", "scorer": 5.50, "skuddPåMål": null, "skudd": null, "estimert": true }
       ]
     },
-    "fasit": null
+    "fasit": {
+      "score": "3 - 2",
+      "utfall": "Argentina seier ✅",
+      "scorer": "Yasser Ibrahim (Egypt, 15') · Mostafa Zico (Egypt, 67') · Cristian Romero (Argentina, 79') · Lionel Messi (Argentina, 83') · Enzo Fernández (Argentina, 90+2')",
+      "stats": "Egypt ledet 2-0 til 79'. Argentina snudde med 3 mål på 11 min. Messi hadde straffe reddet av Shobeir i 1. omgang. VAR annullerte ett Egypt-mål.",
+      "notat": "Turneringens største sjokk: Egypt sjokkerte med Ibrahim-heading (15') og Zico-avslutning (67') for 0-2-ledelse. Argentina svarte med Romero-heading fra Messi-innlegg (79'), Messis eget mål (83') og Enzos avgjørende stikk i 90+2'. Messi nå med 8 VM-mål -turneringens toppscorer alene foran Mbappé og Haaland (begge 7).",
+      "items": [
+        { "label": "Resultat - Argentina seier",           "treff": true },
+        { "label": "Score - 2-0 Argentina (eksakt)",        "treff": false, "notat": "Ble 3-2 -Egypt ledet 0-2 til 79'" },
+        { "label": "Under 2.5 mål",                         "treff": false, "notat": "5 mål totalt" },
+        { "label": "Scorer - Messi (garantert)",            "treff": true,  "notat": "Scoret i 83'" },
+        { "label": "Scorer - Lautaro Martinez (sannsynlig)","treff": false, "notat": "Romero headet inn (ikke Lautaro)" },
+        { "label": "Scorer - Julian Alvarez (mulig)",       "treff": false, "notat": "Enzo Fernández scoret (90+2')" },
+        { "label": "Scorer - Mac Allister (mulig)",         "treff": false, "notat": "Scoret ikke" },
+        { "label": "Scorer - Marmoush (mulig)",             "treff": false, "notat": "Ibrahim og Zico scoret for Egypt" },
+        { "label": "Scorer - Salah (mulig)",                "treff": false, "notat": "Scoret ikke" }
+      ]
+    }
   },
   {
     "id": "svi-col",
@@ -1465,7 +1499,7 @@
     "bortelag":  { "navn": "Colombia", "flagg": "🇨🇴" },
     "arena": "BC Place, Vancouver",
     "runde": "R16",
-    "status": "kommende",
+    "status": "spilt",
     "prediksjon": {
       "score": "1 - 0",
       "primær": "Sveits 1-0 Colombia",
@@ -1500,6 +1534,215 @@
         { "spiller": "Jhon Arias",     "lag": "Colombia", "scorer": 4.00, "skuddPåMål": null, "skudd": null, "estimert": true },
         { "spiller": "James Rodriguez","lag": "Colombia", "scorer": 5.50, "skuddPåMål": null, "skudd": null, "estimert": true },
         { "spiller": "Granit Xhaka",   "lag": "Sveits",   "scorer": 6.00, "skuddPåMål": null, "skudd": null, "estimert": true }
+      ]
+    },
+    "fasit": {
+      "score": "0 - 0 str. (4-3)",
+      "utfall": "Sveits seier ✅",
+      "scorer": "Ingen mål i 120 minutter. Rubén Vargas scoret avgjørende straffe for Sveits.",
+      "stats": "0-0 etter 90 min og e.e.t. Sveits vant 4-3 på straffer. VM-2026s mest defensivt kompakte kamp.",
+      "notat": "To elite-forsvar nøytraliserte hverandre fullstendig i 120 minutter uten mål -Under 1.5 treffer perfekt. Sveits vant straffene 4-3 med Rubén Vargas som avgjørende skytter. Landets første VM-kvartfinale siden 1954. Sveits møter Argentina.",
+      "items": [
+        { "label": "Resultat - Sveits seier",        "treff": true,  "notat": "Via straffer 4-3" },
+        { "label": "Score - 1-0 Sveits (eksakt)",     "treff": false, "notat": "Ble 0-0 e.e.t." },
+        { "label": "Under 1.5 mål",                   "treff": true,  "notat": "0 mål i 120 minutter ✅" },
+        { "label": "Scorer - Embolo (garantert)",      "treff": false, "notat": "0-0 i 120 min -ingen scoret" },
+        { "label": "Scorer - Luis Diaz (sannsynlig)",  "treff": false, "notat": "Colombia scoret ikke" },
+        { "label": "Scorer - Ndoye (mulig)",           "treff": false, "notat": "Sveits scoret ikke i ordinær tid" },
+        { "label": "Scorer - Arias (mulig)",           "treff": false, "notat": "Colombia scoret ikke" },
+        { "label": "Scorer - Xhaka (mulig)",           "treff": false, "notat": "Scoret ikke" },
+        { "label": "Scorer - James Rodriguez (mulig)", "treff": false, "notat": "Scoret ikke" }
+      ]
+    }
+  },
+  {
+    "id": "fra-mar",
+    "dato": "2026-07-09",
+    "datoVis": "9. juli 2026",
+    "tidspunkt": "22:00 CEST",
+    "hjemmelag": { "navn": "Frankrike", "flagg": "🇫🇷" },
+    "bortelag":  { "navn": "Marokko",   "flagg": "🇲🇦" },
+    "arena": "Gillette Stadium, Foxborough",
+    "runde": "QF",
+    "status": "kommende",
+    "prediksjon": {
+      "score": "2 - 1",
+      "primær": "Frankrike 2-1 Marokko",
+      "alt": "Alt: Frankrike 2-0 / 1-1 e.e.t.",
+      "sannsynlighet": [
+        { "label": "Frankrike seier", "pct": 62, "farge": "#3b82f6" },
+        { "label": "Uavgjort",        "pct": 23, "farge": "#94a3b8" },
+        { "label": "Marokko seier",   "pct": 15, "farge": "#ef4444" }
+      ],
+      "overUnder": "Over 2.5 mål",
+      "konklusjon": "Frankrike er klare favoritter (-175) med 14 mål og kun 2 innsluppet -2.8 mål per kamp, 3+ i alle sine fem kamper. Mbappe leder toppscorerlisten med 7 mål. Men Marokko er ubeseiret på 5 kamper: Brahim Diaz (4 assists, afrikansk VM-rekord), Ounahi-brace mot Canada i R16, og et kompakt 4-4-2 som absorberer trykk og truer på kontra. Gillette Stadium i Foxborough er utendørs men ikke ekstremvarmt -ingen avgjørende klimafaktor. Over 2.5 er naturlig: Frankrike scorer 3 nesten automatisk, og Marokko slapp inn 3 mot Canada. Marokkos kontraspill kan gi 1 mål, men det holder ikke mot Mbappes form.",
+      "scorer": [
+        { "spiller": "Kylian Mbappe",   "lag": "Frankrike", "nivå": "garantert" },
+        { "spiller": "Bradley Barcola", "lag": "Frankrike", "nivå": "sannsynlig" },
+        { "spiller": "Azzedine Ounahi", "lag": "Marokko",   "nivå": "mulig" },
+        { "spiller": "Brahim Diaz",     "lag": "Marokko",   "nivå": "mulig" },
+        { "spiller": "Marcus Thuram",   "lag": "Frankrike", "nivå": "mulig" },
+        { "spiller": "Michael Olise",   "lag": "Frankrike", "nivå": "mulig" }
+      ]
+    },
+    "odds": {
+      "kilde": "FanDuel / bet365",
+      "kampresultat": [
+        { "label": "Frankrike seier", "odds": 1.57 },
+        { "label": "Uavgjort",        "odds": 3.80 },
+        { "label": "Marokko seier",   "odds": 6.50 }
+      ],
+      "spillerOdds": [
+        { "spiller": "Kylian Mbappe",   "lag": "Frankrike", "scorer": 1.70, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Marcus Thuram",   "lag": "Frankrike", "scorer": 2.60, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Bradley Barcola", "lag": "Frankrike", "scorer": 2.80, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Michael Olise",   "lag": "Frankrike", "scorer": 3.00, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Azzedine Ounahi", "lag": "Marokko",   "scorer": 4.50, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Brahim Diaz",     "lag": "Marokko",   "scorer": 5.00, "skuddPåMål": null, "skudd": null, "estimert": true }
+      ]
+    },
+    "fasit": null
+  },
+  {
+    "id": "spa-bel",
+    "dato": "2026-07-10",
+    "datoVis": "10. juli 2026",
+    "tidspunkt": "21:00 CEST",
+    "hjemmelag": { "navn": "Spania", "flagg": "🇪🇸" },
+    "bortelag":  { "navn": "Belgia", "flagg": "🇧🇪" },
+    "arena": "SoFi Stadium, Los Angeles",
+    "runde": "QF",
+    "status": "kommende",
+    "prediksjon": {
+      "score": "2 - 0",
+      "primær": "Spania 2-0 Belgia",
+      "alt": "Alt: Spania 2-1 / Spania 1-0",
+      "sannsynlighet": [
+        { "label": "Spania seier", "pct": 58, "farge": "#f97316" },
+        { "label": "Uavgjort",     "pct": 23, "farge": "#94a3b8" },
+        { "label": "Belgia seier", "pct": 19, "farge": "#ef4444" }
+      ],
+      "overUnder": "Under 2.5 mål",
+      "konklusjon": "Klassisk defensiv-offensiv kontrast: Spanias historiske 6 strake clean sheets (0 innsluppet på 6 kamper) møter Belgias eksplosive angrep som nettopp sendte USA hjem 4-1. SoFi Stadium i Los Angeles er innendørs med klimaanlegg -ingen klimafaktor. Rodris midtbanekontroll mot De Bruynes linjeskjærende pasninger er nøkkelduellen. Belgia har imidlertid sluppet inn 7 mål i sine to siste kamper og forsvaret er porøst. Yamal og Nico Williams er lynraske på kontra og vil straffe Belgias høye linje. Spanias clean-sheet-rekord er det sterkeste statistiske signalet i turneringen. Under 2.5 med Spania-seier er det trygge valget.",
+      "scorer": [
+        { "spiller": "Mikel Oyarzabal",     "lag": "Spania", "nivå": "garantert" },
+        { "spiller": "Lamine Yamal",        "lag": "Spania", "nivå": "sannsynlig" },
+        { "spiller": "Nico Williams",       "lag": "Spania", "nivå": "mulig" },
+        { "spiller": "Dani Olmo",           "lag": "Spania", "nivå": "mulig" },
+        { "spiller": "Charles De Ketelaere","lag": "Belgia", "nivå": "mulig" },
+        { "spiller": "Romelu Lukaku",       "lag": "Belgia", "nivå": "mulig" }
+      ]
+    },
+    "odds": {
+      "kilde": "bet365 / DraftKings",
+      "kampresultat": [
+        { "label": "Spania seier", "odds": 1.62 },
+        { "label": "Uavgjort",     "odds": 4.00 },
+        { "label": "Belgia seier", "odds": 5.25 }
+      ],
+      "spillerOdds": [
+        { "spiller": "Mikel Oyarzabal",     "lag": "Spania", "scorer": 2.20, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Lamine Yamal",        "lag": "Spania", "scorer": 2.50, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Romelu Lukaku",       "lag": "Belgia", "scorer": 2.80, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Nico Williams",       "lag": "Spania", "scorer": 3.00, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Charles De Ketelaere","lag": "Belgia", "scorer": 3.20, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Dani Olmo",           "lag": "Spania", "scorer": 4.00, "skuddPåMål": null, "skudd": null, "estimert": true }
+      ]
+    },
+    "fasit": null
+  },
+  {
+    "id": "nor-eng",
+    "dato": "2026-07-11",
+    "datoVis": "11. juli 2026",
+    "tidspunkt": "23:00 CEST",
+    "hjemmelag": { "navn": "Norge",   "flagg": "🇳🇴" },
+    "bortelag":  { "navn": "England", "flagg": "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
+    "arena": "Hard Rock Stadium, Miami Gardens",
+    "runde": "QF",
+    "status": "kommende",
+    "prediksjon": {
+      "score": "1 - 2",
+      "primær": "England 2-1 Norge",
+      "alt": "Alt: 1-1 e.e.t. / Norge 2-1",
+      "sannsynlighet": [
+        { "label": "Norge seier",   "pct": 28, "farge": "#22c55e" },
+        { "label": "Uavgjort",      "pct": 24, "farge": "#94a3b8" },
+        { "label": "England seier", "pct": 48, "farge": "#3b82f6" }
+      ],
+      "overUnder": "Over 2.5 mål",
+      "konklusjon": "Skandinavisk VM-showdown: Haaland (7 VM-mål, delt toppscorer med Mbappé) mot England som overlevde med 10 mann mot Mexico på Azteca. Hard Rock Stadium i Miami er utendørs -Juli-fuktighet og 33°C rammer begge nordeuropeiske lag likt, ingen klimafordel. England savner Quansah (utvist mot Mexico) og Reece James forventes å rotere inn. Norge er i historisk form: første QF noensinne, Schjelderup på to assists mot Brasil og Haaland uoppstoppelig i lufta. England er marginale favoritter (-106) i et nesten jevnspilt marked. Kane (13 WC-mål karriere) mot Haaland (7 denne turneringen) -to av historiens beste avsluttere. Over 2.5 er støttet av markedet: fire toppscorere (Kane, Haaland, Bellingham, Ødegaard) er på samme bane.",
+      "scorer": [
+        { "spiller": "Harry Kane",       "lag": "England", "nivå": "garantert" },
+        { "spiller": "Erling Haaland",   "lag": "Norge",   "nivå": "garantert" },
+        { "spiller": "Jude Bellingham",  "lag": "England", "nivå": "sannsynlig" },
+        { "spiller": "Martin Ødegaard",  "lag": "Norge",   "nivå": "mulig" },
+        { "spiller": "Bukayo Saka",      "lag": "England", "nivå": "mulig" },
+        { "spiller": "Marcus Schjelderup","lag": "Norge",   "nivå": "mulig" }
+      ]
+    },
+    "odds": {
+      "kilde": "bet365 / DraftKings",
+      "kampresultat": [
+        { "label": "Norge seier",   "odds": 3.40 },
+        { "label": "Uavgjort",      "odds": 3.50 },
+        { "label": "England seier", "odds": 2.10 }
+      ],
+      "spillerOdds": [
+        { "spiller": "Erling Haaland",    "lag": "Norge",   "scorer": 1.95, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Harry Kane",        "lag": "England", "scorer": 2.10, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Jude Bellingham",   "lag": "England", "scorer": 2.80, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Bukayo Saka",       "lag": "England", "scorer": 3.20, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Martin Ødegaard",   "lag": "Norge",   "scorer": 3.80, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Marcus Schjelderup","lag": "Norge",   "scorer": 5.00, "skuddPåMål": null, "skudd": null, "estimert": true }
+      ]
+    },
+    "fasit": null
+  },
+  {
+    "id": "arg-svi",
+    "dato": "2026-07-12",
+    "datoVis": "12. juli 2026",
+    "tidspunkt": "03:00 CEST",
+    "hjemmelag": { "navn": "Argentina", "flagg": "🇦🇷" },
+    "bortelag":  { "navn": "Sveits",    "flagg": "🇨🇭" },
+    "arena": "Arrowhead Stadium, Kansas City",
+    "runde": "QF",
+    "status": "kommende",
+    "prediksjon": {
+      "score": "2 - 0",
+      "primær": "Argentina 2-0 Sveits",
+      "alt": "Alt: Argentina 2-1 / Argentina 1-0",
+      "sannsynlighet": [
+        { "label": "Argentina seier", "pct": 56, "farge": "#3b82f6" },
+        { "label": "Uavgjort",        "pct": 25, "farge": "#94a3b8" },
+        { "label": "Sveits seier",    "pct": 19, "farge": "#ef4444" }
+      ],
+      "overUnder": "Under 2.5 mål",
+      "konklusjon": "Argentina er solide favoritter (-140) med Messi (8 VM-mål, turneringens toppscorer) og 5V 2U 0T totalt mot Sveits i historien. Siste møte: Messi ga Di María assist-pasning i 118' i 2014-VM. Men Argentina advarer: de snudde 0-2 mot Egypt og trengte e.e.t. mot Kapp Verde. Sveits har kun sluppet inn 3 mål i turneringen, Kobel på 16 redninger og holdt Colombia til 0-0 i 120 min. Sveits er imidlertid offensivt tomt -0 mål mot Colombia, 0 mål mot Bosnia i normal tid. Arrowhead Stadium i Kansas City er utendørs -Juli-varme (33-38°C) gir Argentina en marginal fordel over Sveits (alpint klima). Messi skaper sjanser, Sveits kan ikke score nok til å slå Argentina. Under 2.5 passer perfekt: lav Sveits-xG og Argentina som ikke elsker høyscoring.",
+      "scorer": [
+        { "spiller": "Lionel Messi",     "lag": "Argentina", "nivå": "garantert" },
+        { "spiller": "Lautaro Martinez", "lag": "Argentina", "nivå": "sannsynlig" },
+        { "spiller": "Julian Alvarez",   "lag": "Argentina", "nivå": "mulig" },
+        { "spiller": "Cristian Romero",  "lag": "Argentina", "nivå": "mulig" },
+        { "spiller": "Breel Embolo",     "lag": "Sveits",    "nivå": "mulig" },
+        { "spiller": "Dan Ndoye",        "lag": "Sveits",    "nivå": "mulig" }
+      ]
+    },
+    "odds": {
+      "kilde": "bet365 / DraftKings",
+      "kampresultat": [
+        { "label": "Argentina seier", "odds": 1.71 },
+        { "label": "Uavgjort",        "odds": 4.00 },
+        { "label": "Sveits seier",    "odds": 6.00 }
+      ],
+      "spillerOdds": [
+        { "spiller": "Lionel Messi",     "lag": "Argentina", "scorer": 1.75, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Lautaro Martinez", "lag": "Argentina", "scorer": 2.50, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Julian Alvarez",   "lag": "Argentina", "scorer": 3.00, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Breel Embolo",     "lag": "Sveits",    "scorer": 4.00, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Dan Ndoye",        "lag": "Sveits",    "scorer": 5.00, "skuddPåMål": null, "skudd": null, "estimert": true },
+        { "spiller": "Cristian Romero",  "lag": "Argentina", "scorer": 7.00, "skuddPåMål": null, "skudd": null, "estimert": true }
       ]
     },
     "fasit": null
