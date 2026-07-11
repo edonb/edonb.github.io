@@ -1564,7 +1564,7 @@
     "bortelag":  { "navn": "Marokko",   "flagg": "🇲🇦" },
     "arena": "Gillette Stadium, Foxborough",
     "runde": "QF",
-    "status": "kommende",
+    "status": "spilt",
     "prediksjon": {
       "score": "2 - 1",
       "primær": "Frankrike 2-1 Marokko",
@@ -1601,7 +1601,24 @@
         { "spiller": "Brahim Diaz",     "lag": "Marokko",   "scorer": 5.00, "skuddPåMål": null, "skudd": null, "estimert": true }
       ]
     },
-    "fasit": null
+    "fasit": {
+      "score": "2 - 0",
+      "utfall": "Frankrike seier ✅",
+      "scorer": "Kylian Mbappe (Frankrike, 60') · Ousmane Dembele (Frankrike, 66')",
+      "stats": "Frankrike totalt dominant -21 skudd mot Marokkos 4. Mbappe miste straffe i 1. omgang (Bounou reddet). Frankrike 8-1 skudd på mål.",
+      "notat": "Mbappe bommet straffe i 1. omgang men scoret sitt 8. mål i turneringen i 60' med en curler. Dembele -turneringens stille gigant med 5 mål- doblet på Mbappe-innlegg i 66'. Mbappe nå på 20 VM-karrieremål, 1 bak Messis 21. Marokko uten ett skudd på mål verdt å nevne. Frankrike møter Spania i semifinalen.",
+      "items": [
+        { "label": "Resultat - Frankrike seier",    "treff": true },
+        { "label": "Score - 2-1 Frankrike (eksakt)", "treff": false, "notat": "Ble 2-0 -Marokko scoret ikke" },
+        { "label": "Over 2.5 mål",                   "treff": false, "notat": "2 mål totalt" },
+        { "label": "Scorer - Mbappe (garantert)",    "treff": true,  "notat": "Scoret i 60' (8. mål i turneringen)" },
+        { "label": "Scorer - Barcola (sannsynlig)",  "treff": false, "notat": "Dembele scoret igjen (5. turneringsmål)" },
+        { "label": "Scorer - Ounahi (mulig)",        "treff": false, "notat": "Marokko scoret ikke" },
+        { "label": "Scorer - Brahim Diaz (mulig)",   "treff": false, "notat": "Marokko scoret ikke" },
+        { "label": "Scorer - Thuram (mulig)",        "treff": false, "notat": "Scoret ikke" },
+        { "label": "Scorer - Olise (mulig)",         "treff": false, "notat": "Scoret ikke" }
+      ]
+    }
   },
   {
     "id": "spa-bel",
@@ -1612,7 +1629,7 @@
     "bortelag":  { "navn": "Belgia", "flagg": "🇧🇪" },
     "arena": "SoFi Stadium, Los Angeles",
     "runde": "QF",
-    "status": "kommende",
+    "status": "spilt",
     "prediksjon": {
       "score": "2 - 0",
       "primær": "Spania 2-0 Belgia",
@@ -1649,7 +1666,24 @@
         { "spiller": "Dani Olmo",           "lag": "Spania", "scorer": 4.00, "skuddPåMål": null, "skudd": null, "estimert": true }
       ]
     },
-    "fasit": null
+    "fasit": {
+      "score": "2 - 1",
+      "utfall": "Spania seier ✅",
+      "scorer": "Fabián Ruiz (Spania, 30') · Charles De Ketelaere (Belgia, 41') · Mikel Merino (Spania, 88')",
+      "stats": "Courtois skadet tidlig → backup Lammens inn. De Ketelaere brøt Spanias 7-kamp clean sheet-rekord. Merino inn i 86', scoret på 2. berøring.",
+      "notat": "Fabian Ruiz åpnet scoring i 30'. De Ketelaere scoret Spanias aller første innsluppne mål i turneringen i 41' -etter 7 kamper med nullen! Courtois skadet og erstattet av backup Senne Lammens. Innbytter Merino -igjen- kom inn i 86. minutt og scoret på sin 2. berøring i 88'. To avgjørende sene Merino-mål på rad (Portugal 90+1', Belgia 88'). Spania møter Frankrike i semifinalen.",
+      "items": [
+        { "label": "Resultat - Spania seier",           "treff": true },
+        { "label": "Score - 2-0 Spania (eksakt)",        "treff": false, "notat": "Ble 2-1 -De Ketelaere brøt clean sheet" },
+        { "label": "Under 2.5 mål",                      "treff": false, "notat": "3 mål totalt" },
+        { "label": "Scorer - Oyarzabal (garantert)",     "treff": false, "notat": "Fabian Ruiz scoret (30')" },
+        { "label": "Scorer - Yamal (sannsynlig)",         "treff": false, "notat": "Scoret ikke" },
+        { "label": "Scorer - Williams (mulig)",           "treff": false, "notat": "Scoret ikke" },
+        { "label": "Scorer - Olmo (mulig)",               "treff": false, "notat": "Scoret ikke" },
+        { "label": "Scorer - De Ketelaere (mulig)",      "treff": true,  "notat": "Scoret Spanias første innsluppne mål i turneringen (41')" },
+        { "label": "Scorer - Lukaku (mulig)",             "treff": false, "notat": "Scoret ikke -Merino avgjorde (88')" }
+      ]
+    }
   },
   {
     "id": "nor-eng",
@@ -1666,12 +1700,12 @@
       "primær": "England 2-1 Norge",
       "alt": "Alt: 1-1 e.e.t. / Norge 2-1",
       "sannsynlighet": [
-        { "label": "Norge seier",   "pct": 28, "farge": "#22c55e" },
+        { "label": "Norge seier",   "pct": 35, "farge": "#22c55e" },
         { "label": "Uavgjort",      "pct": 24, "farge": "#94a3b8" },
-        { "label": "England seier", "pct": 48, "farge": "#3b82f6" }
+        { "label": "England seier", "pct": 41, "farge": "#3b82f6" }
       ],
       "overUnder": "Over 2.5 mål",
-      "konklusjon": "Skandinavisk VM-showdown: Haaland (7 VM-mål, delt toppscorer med Mbappé) mot England som overlevde med 10 mann mot Mexico på Azteca. Hard Rock Stadium i Miami er utendørs -Juli-fuktighet og 33°C rammer begge nordeuropeiske lag likt, ingen klimafordel. England savner Quansah (utvist mot Mexico) og Reece James forventes å rotere inn. Norge er i historisk form: første QF noensinne, Schjelderup på to assists mot Brasil og Haaland uoppstoppelig i lufta. England er marginale favoritter (-106) i et nesten jevnspilt marked. Kane (13 WC-mål karriere) mot Haaland (7 denne turneringen) -to av historiens beste avsluttere. Over 2.5 er støttet av markedet: fire toppscorere (Kane, Haaland, Bellingham, Ødegaard) er på samme bane.",
+      "konklusjon": "⚠️ OPPDATERT: England i defensiv krise. Quansah SUSPENDERT (2-kampers utestengelse), Guehi ALVORLIG TVIL (hamstring, trente ikke på siste økt), Reece James TVIL (hamstring, ikke trent med laget på 3 uker), Henderson UTE (brukket håndledd), Declan Rice syk etter Mexico-tur (forventes å spille). Haaland (7 VM-mål) mot Englands svektede senter-forsvar er kampens nøkkel -han scoret brace i lufta mot Brasil, og uten Quansah/Guehi finnes ingen naturlig aerial stopper. Norge rammet av sykdomsbølge (Strand Larsen, Pedersen) men trolig friske til kamp. Hard Rock Stadium i Miami er utendørs -33°C, ingen klimafordel begge nordeuropeiske lag. Haaland sier 'sjansene våre er veldig lave, all press på England' -psykologisk spill. Over 2.5 er sterk: Kane, Haaland, Bellingham, Ødegaard i en kamp med svekket forsvar på begge sider.",
       "scorer": [
         { "spiller": "Harry Kane",       "lag": "England", "nivå": "garantert" },
         { "spiller": "Erling Haaland",   "lag": "Norge",   "nivå": "garantert" },
@@ -1714,12 +1748,12 @@
       "primær": "Argentina 2-0 Sveits",
       "alt": "Alt: Argentina 2-1 / Argentina 1-0",
       "sannsynlighet": [
-        { "label": "Argentina seier", "pct": 56, "farge": "#3b82f6" },
-        { "label": "Uavgjort",        "pct": 25, "farge": "#94a3b8" },
-        { "label": "Sveits seier",    "pct": 19, "farge": "#ef4444" }
+        { "label": "Argentina seier", "pct": 63, "farge": "#3b82f6" },
+        { "label": "Uavgjort",        "pct": 22, "farge": "#94a3b8" },
+        { "label": "Sveits seier",    "pct": 15, "farge": "#ef4444" }
       ],
       "overUnder": "Under 2.5 mål",
-      "konklusjon": "Argentina er solide favoritter (-140) med Messi (8 VM-mål, turneringens toppscorer) og 5V 2U 0T totalt mot Sveits i historien. Siste møte: Messi ga Di María assist-pasning i 118' i 2014-VM. Men Argentina advarer: de snudde 0-2 mot Egypt og trengte e.e.t. mot Kapp Verde. Sveits har kun sluppet inn 3 mål i turneringen, Kobel på 16 redninger og holdt Colombia til 0-0 i 120 min. Sveits er imidlertid offensivt tomt -0 mål mot Colombia, 0 mål mot Bosnia i normal tid. Arrowhead Stadium i Kansas City er utendørs -Juli-varme (33-38°C) gir Argentina en marginal fordel over Sveits (alpint klima). Messi skaper sjanser, Sveits kan ikke score nok til å slå Argentina. Under 2.5 passer perfekt: lav Sveits-xG og Argentina som ikke elsker høyscoring.",
+      "konklusjon": "⚠️ OPPDATERT: Sveits' nøkkelspiller Johan Manzambi (3 mål i turneringen, overraskelsen) er reell tvil med kneskade. Uten Manzambi er Sveits' angrep nær tomt -0 mål mot Colombia i 120 min. Argentina er fullstendig skadefrie med Messi (8 VM-mål, turneringstopper), og forventes i 4-3-3 med Alvarez og Messi i front. H2H 5V 2U 0T mot Sveits -siste møte 2014-VM der Messi satte opp Di María i 118'. Argentina har scoret i alle 5 kamper og snudde 0-2 mot Egypt. Arrowhead Stadium i Kansas City er utendørs -33-38°C i Juli gir Argentina en marginal fordel over de alpine sveitserne. Manzambi-usikkerheten forsterker Under 2.5: uten ham er Sveits' xG enda lavere. Argentina er QF-rundens klarest støttede favoritt.",
       "scorer": [
         { "spiller": "Lionel Messi",     "lag": "Argentina", "nivå": "garantert" },
         { "spiller": "Lautaro Martinez", "lag": "Argentina", "nivå": "sannsynlig" },
